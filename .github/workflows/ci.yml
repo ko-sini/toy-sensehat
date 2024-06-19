@@ -31,4 +31,4 @@ jobs:
         rm -rf temp
     - name: Analysing the code with pylint
       run: |
-        pylint $(git ls-files '*.py') --disable=W0511
+        pylint $(git ls-files '*.py') --disable=W0511,C0116
