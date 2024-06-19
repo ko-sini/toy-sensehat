@@ -1,15 +1,18 @@
-import boto3
-from botocore.exceptions import ClientError
-import pandas as pd
-import os
+"""Functions to upload sensehat data to AWS s3."""
 
-from sense_hat import SenseHat
+import logging
+import os
+from configparser import ConfigParser
 from datetime import datetime
 
-from configparser import ConfigParser
+import boto3
+import pandas as pd
+from botocore.exceptions import ClientError
+from sense_hat import SenseHat
 
-config = ConfigParser()   
-config.read_file(open("./etl/.cfg"))
+config = ConfigParser()
+with open("./etl/.cfg", encoding="utf-8") as cfg:
+    config.read_file(cfg)
 
 def s3_object_exists(
     resource,
@@ -21,11 +24,10 @@ def s3_object_exists(
     except ClientError as err:
         if err.response['Error']['Code'] == "404":
             return False  # object does not exist
-        else:
-            raise ClientError  # something else went wrong
-    else:
-        return True  # object exists
-    
+        logging.error(err)
+        raise ClientError from err # something else went wrong
+    return True  # object exists
+
 def upload_to_s3(
     client,
     bucket_name: str,
@@ -33,10 +35,9 @@ def upload_to_s3(
     file_name: str,
 ):
     try:
-        response = client.upload_file(file_name, bucket_name, object_name)
-    except ClientError as e:
-        print("Something went wrong.")
-        #logging.error(e)
+        client.upload_file(file_name, bucket_name, object_name)
+    except ClientError as err:
+        logging.error(err)
         return False
     return True
 
