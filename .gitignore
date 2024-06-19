@@ -1,0 +1,10 @@
+venv
+temp
+
+# Configs and credentials
+.env
+.cfg
+
+# Terraform
+.terraform.lock.hcl
+.terraform
