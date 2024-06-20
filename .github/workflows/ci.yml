@@ -21,14 +21,10 @@ jobs:
         pip install -r requirements-dev.txt
     - name: Install RTIMUlib
       run: |
-        mkdir temp
-        cd temp
         git clone https://github.com/RPi-Distro/RTIMULib
-        cd ./RTIMULib/Linux/python/
-        python3 setup.py build
-        python3 setup.py install
-        cd ../..
-        rm -rf temp
+        python3 ./RTIMULib/Linux/python/setup.py build
+        python3 ./RTIMULib/Linux/python/setup.py install
+        rm -rf ./RTIMULib
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py') --disable=W0511,C0116
