@@ -22,8 +22,10 @@ jobs:
     - name: Install RTIMUlib
       run: |
         git clone https://github.com/RPi-Distro/RTIMULib
-        python3 ./RTIMULib/Linux/python/setup.py build
-        python3 ./RTIMULib/Linux/python/setup.py install
+        cd ./RTIMULib/Linux/python/
+        python3 setup.py build
+        python3 setup.py install
+        cd $GITHUB_WORKSPACE
         rm -rf ./RTIMULib
     - name: Analysing the code with pylint
       run: |
