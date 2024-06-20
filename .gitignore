@@ -8,3 +8,6 @@ temp
 # Terraform
 .terraform.lock.hcl
 .terraform
+
+# Linters
+.mypy_cache

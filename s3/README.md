@@ -2,7 +2,7 @@
 
 ## Terraform
 
-Chdir or cd to infra directory and initialize.
+`-chdir` or `cd` to infra directory and initialize.
 ```bash
 terraform -chdir="./s3" init
 ```
@@ -10,6 +10,11 @@ terraform -chdir="./s3" init
 Plan
 ```bash
 terraform -chdir="./s3" plan
+```
+
+Remember to run terraform format every now and then, and especially before pushing code!
+```bash
+terraform -chdir="./s3" fmt
 ```
 
 Apply planned changes
